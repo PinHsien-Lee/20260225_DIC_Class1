@@ -1,5 +1,9 @@
 # LEE Personal Website
 
+**[DEMO SITE](https://pinhsien-lee.github.io/20260225_DRL_Class1/)**
+
+![Demo](demo.png)
+
 ## Overview
 This is a single-page personal website featuring a modern, premium **glassmorphism** design. It serves as a personal dashboard that displays the user's name, the real-time clock and date, their current geographic location, and local weather via dynamic API calls.
 
