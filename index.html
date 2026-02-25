@@ -420,34 +420,72 @@
         setInterval(updateClock, 1000);
 
         // ── Location & Weather ──
-        async function fetchLocationAndWeather() {
+        async function updateWeatherUI(lat, lon, city, country) {
             const locEl = document.getElementById('location-weather');
             try {
-                // Get location based on IP
-                const ipRes = await fetch('https://ipapi.co/json/');
-                const ipData = await ipRes.json();
-
-                if (ipData.error) throw new Error("Could not fetch location");
-
-                const city = ipData.city;
-                const code = ipData.country;
-                const lat = ipData.latitude;
-                const lon = ipData.longitude;
-
                 // Get weather from Open-Meteo
                 const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
                 const weatherData = await weatherRes.json();
                 const temp = weatherData.current_weather.temperature;
 
-                // Weather symbol according to weathercode could be added, but a default one is fine
-                locEl.innerHTML = `📍 ${city}, ${code} &nbsp;|&nbsp; ⛅ ${temp}°C`;
+                locEl.innerHTML = `📍 ${city}, ${country} &nbsp;|&nbsp; ⛅ ${temp}°C`;
             } catch (err) {
                 console.error(err);
-                locEl.innerHTML = '📍 Location/Weather unavailable';
+                locEl.innerHTML = '📍 Weather unavailable';
             }
         }
 
-        fetchLocationAndWeather();
+        async function fetchLocationByIP() {
+            try {
+                const ipRes = await fetch('https://ipapi.co/json/');
+                const ipData = await ipRes.json();
+                if (ipData.error) throw new Error("IP location failed");
+                await updateWeatherUI(ipData.latitude, ipData.longitude, ipData.city, ipData.country);
+            } catch (err) {
+                console.error(err);
+                document.getElementById('location-weather').innerHTML = '📍 Location/Weather unavailable';
+            }
+        }
+
+        function requestUserLocation() {
+            const locEl = document.getElementById('location-weather');
+            locEl.innerHTML = '📍 Requesting location access...';
+
+            if (!navigator.geolocation) {
+                console.warn('Geolocation is not supported by your browser');
+                fetchLocationByIP();
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    try {
+                        // Reverse geocoding to get city/country name
+                        const geoRes = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
+                        const geoData = await geoRes.json();
+
+                        // Fallback to general regions if city isn't perfectly mapped
+                        const city = geoData.city || geoData.locality || "Unknown Region";
+                        const country = geoData.countryCode || geoData.countryName;
+
+                        await updateWeatherUI(lat, lon, city, country);
+                    } catch (err) {
+                        console.error('Reverse geocoding failed', err);
+                        // Still update weather even if we can't find the city name
+                        await updateWeatherUI(lat, lon, 'Your Location', '');
+                    }
+                },
+                (error) => {
+                    console.warn('User denied location or error occurred. Falling back to IP location.', error);
+                    fetchLocationByIP();
+                },
+                { timeout: 10000 }
+            );
+        }
+
+        requestUserLocation();
     </script>
 </body>
 
