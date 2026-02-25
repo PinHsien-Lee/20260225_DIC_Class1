@@ -1,6 +1,6 @@
 # LEE Personal Website
 
-**[DEMO SITE](https://pinhsien-lee.github.io/20260225_DRL_Class1/)**
+**[DEMO SITE](https://pinhsien-lee.github.io/20260225_DIC_Class1/)**
 
 ![Demo](demo.png)
 
