@@ -297,6 +297,14 @@
             animation: fadeSlideUp .8s .9s both;
         }
 
+        .location-weather {
+            margin-top: 12px;
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, .7);
+            animation: fadeSlideUp .8s 1s both;
+        }
+
         /* ─── Footer tagline ─── */
         .tagline {
             margin-top: 32px;
@@ -304,7 +312,7 @@
             font-weight: 300;
             letter-spacing: 1.5px;
             color: rgba(255, 255, 255, .25);
-            animation: fadeSlideUp .8s 1s both;
+            animation: fadeSlideUp .8s 1.1s both;
         }
 
         /* ─── Shared entrance ─── */
@@ -367,6 +375,7 @@
         <p class="clock-label">Current Time</p>
         <div class="clock" id="clock" aria-live="polite"></div>
         <p class="date" id="date"></p>
+        <p class="location-weather" id="location-weather"></p>
         <p class="tagline">designing · developing · dreaming</p>
     </main>
 
@@ -409,6 +418,36 @@
 
         updateClock();
         setInterval(updateClock, 1000);
+
+        // ── Location & Weather ──
+        async function fetchLocationAndWeather() {
+            const locEl = document.getElementById('location-weather');
+            try {
+                // Get location based on IP
+                const ipRes = await fetch('https://ipapi.co/json/');
+                const ipData = await ipRes.json();
+
+                if (ipData.error) throw new Error("Could not fetch location");
+
+                const city = ipData.city;
+                const code = ipData.country;
+                const lat = ipData.latitude;
+                const lon = ipData.longitude;
+
+                // Get weather from Open-Meteo
+                const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+                const weatherData = await weatherRes.json();
+                const temp = weatherData.current_weather.temperature;
+
+                // Weather symbol according to weathercode could be added, but a default one is fine
+                locEl.innerHTML = `📍 ${city}, ${code} &nbsp;|&nbsp; ⛅ ${temp}°C`;
+            } catch (err) {
+                console.error(err);
+                locEl.innerHTML = '📍 Location/Weather unavailable';
+            }
+        }
+
+        fetchLocationAndWeather();
     </script>
 </body>
 
