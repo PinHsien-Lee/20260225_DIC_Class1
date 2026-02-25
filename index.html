@@ -1,315 +1,415 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LEE — Personal</title>
-  <meta name="description" content="Personal page of LEE — designer, developer, dreamer." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <style>
-    /* ─── Reset & Base ─── */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LEE — Personal</title>
+    <meta name="description" content="Personal page of LEE — designer, developer, dreamer." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet" />
+    <style>
+        /* ─── Reset & Base ─── */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    html { font-size: 16px; scroll-behavior: smooth; }
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
 
-    body {
-      font-family: 'Outfit', sans-serif;
-      color: #e8e8f0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      background: #0a0a12;
-    }
+        body {
+            font-family: 'Outfit', sans-serif;
+            color: #e8e8f0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #0a0a12;
+        }
 
-    /* ─── Animated Gradient Background ─── */
-    .bg {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      background: linear-gradient(
-        135deg,
-        #0a0a12 0%,
-        #1a103a 25%,
-        #0d1f3c 50%,
-        #0a2530 75%,
-        #0a0a12 100%
-      );
-      background-size: 400% 400%;
-      animation: gradientShift 16s ease infinite;
-    }
+        /* ─── Animated Gradient Background ─── */
+        .bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: linear-gradient(135deg,
+                    #0a0a12 0%,
+                    #1a103a 25%,
+                    #0d1f3c 50%,
+                    #0a2530 75%,
+                    #0a0a12 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 16s ease infinite;
+        }
 
-    @keyframes gradientShift {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
 
-    /* ─── Floating Orbs ─── */
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(100px);
-      opacity: .35;
-      z-index: 1;
-      pointer-events: none;
-    }
-    .orb--1 {
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, #7b2ff7, transparent 70%);
-      top: -10%; left: -8%;
-      animation: float1 20s ease-in-out infinite;
-    }
-    .orb--2 {
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, #00c6ff, transparent 70%);
-      bottom: -12%; right: -6%;
-      animation: float2 18s ease-in-out infinite;
-    }
-    .orb--3 {
-      width: 300px; height: 300px;
-      background: radial-gradient(circle, #f857a6, transparent 70%);
-      top: 50%; left: 55%;
-      animation: float3 22s ease-in-out infinite;
-    }
+            50% {
+                background-position: 100% 50%;
+            }
 
-    @keyframes float1 {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      50%      { transform: translate(80px, 60px) scale(1.15); }
-    }
-    @keyframes float2 {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      50%      { transform: translate(-60px, -50px) scale(1.1); }
-    }
-    @keyframes float3 {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      50%      { transform: translate(-40px, 40px) scale(1.2); }
-    }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
 
-    /* ─── Star‑like Particles ─── */
-    .stars {
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-    }
-    .star {
-      position: absolute;
-      width: 2px; height: 2px;
-      background: #fff;
-      border-radius: 50%;
-      opacity: 0;
-      animation: twinkle 4s ease-in-out infinite;
-    }
+        /* ─── Floating Orbs ─── */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: .35;
+            z-index: 1;
+            pointer-events: none;
+        }
 
-    @keyframes twinkle {
-      0%, 100% { opacity: 0; transform: scale(.8); }
-      50%      { opacity: .7; transform: scale(1.2); }
-    }
+        .orb--1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #7b2ff7, transparent 70%);
+            top: -10%;
+            left: -8%;
+            animation: float1 20s ease-in-out infinite;
+        }
 
-    /* ─── Glass Card ─── */
-    .card {
-      position: relative;
-      z-index: 10;
-      width: min(520px, 90vw);
-      padding: 56px 48px;
-      border-radius: 28px;
-      background: rgba(255, 255, 255, .04);
-      border: 1px solid rgba(255, 255, 255, .08);
-      backdrop-filter: blur(24px) saturate(1.4);
-      -webkit-backdrop-filter: blur(24px) saturate(1.4);
-      box-shadow:
-        0 8px 32px rgba(0, 0, 0, .45),
-        inset 0 1px 0 rgba(255, 255, 255, .06);
-      text-align: center;
-      animation: cardEntrance .9s cubic-bezier(.22, 1, .36, 1) both;
-    }
+        .orb--2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #00c6ff, transparent 70%);
+            bottom: -12%;
+            right: -6%;
+            animation: float2 18s ease-in-out infinite;
+        }
 
-    @keyframes cardEntrance {
-      from { opacity: 0; transform: translateY(40px) scale(.96); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
+        .orb--3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #f857a6, transparent 70%);
+            top: 50%;
+            left: 55%;
+            animation: float3 22s ease-in-out infinite;
+        }
 
-    /* ─── Greeting ─── */
-    .greeting {
-      font-size: .9rem;
-      font-weight: 400;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, .45);
-      margin-bottom: 12px;
-      animation: fadeSlideUp .8s .3s both;
-    }
+        @keyframes float1 {
 
-    /* ─── Name ─── */
-    .name {
-      font-size: clamp(3.2rem, 10vw, 5.5rem);
-      font-weight: 800;
-      letter-spacing: -2px;
-      line-height: 1.05;
-      background: linear-gradient(135deg, #e0e0ff 0%, #a78bfa 40%, #38bdf8 70%, #34d399 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradientText 6s ease infinite, fadeSlideUp .8s .45s both;
-    }
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
 
-    @keyframes gradientText {
-      0%   { background-position: 0% center; }
-      50%  { background-position: 100% center; }
-      100% { background-position: 0% center; }
-    }
+            50% {
+                transform: translate(80px, 60px) scale(1.15);
+            }
+        }
 
-    /* ─── Divider ─── */
-    .divider {
-      width: 48px;
-      height: 3px;
-      margin: 28px auto;
-      border-radius: 2px;
-      background: linear-gradient(90deg, #a78bfa, #38bdf8);
-      animation: fadeSlideUp .8s .6s both;
-    }
+        @keyframes float2 {
 
-    /* ─── Clock ─── */
-    .clock-label {
-      font-size: .75rem;
-      font-weight: 400;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, .35);
-      margin-bottom: 8px;
-      animation: fadeSlideUp .8s .7s both;
-    }
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
 
-    .clock {
-      font-family: 'Space Mono', monospace;
-      font-size: clamp(1.6rem, 5vw, 2.4rem);
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: #f0f0ff;
-      animation: fadeSlideUp .8s .8s both;
-    }
+            50% {
+                transform: translate(-60px, -50px) scale(1.1);
+            }
+        }
 
-    .clock .separator {
-      display: inline-block;
-      animation: blink 1s steps(1) infinite;
-    }
+        @keyframes float3 {
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50%      { opacity: .25; }
-    }
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
 
-    .date {
-      font-size: .85rem;
-      font-weight: 300;
-      color: rgba(255, 255, 255, .4);
-      margin-top: 10px;
-      animation: fadeSlideUp .8s .9s both;
-    }
+            50% {
+                transform: translate(-40px, 40px) scale(1.2);
+            }
+        }
 
-    /* ─── Footer tagline ─── */
-    .tagline {
-      margin-top: 32px;
-      font-size: .8rem;
-      font-weight: 300;
-      letter-spacing: 1.5px;
-      color: rgba(255, 255, 255, .25);
-      animation: fadeSlideUp .8s 1s both;
-    }
+        /* ─── Star‑like Particles ─── */
+        .stars {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
 
-    /* ─── Shared entrance ─── */
-    @keyframes fadeSlideUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 4s ease-in-out infinite;
+        }
 
-    /* ─── Hover glow on card ─── */
-    .card::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: 28px;
-      padding: 1px;
-      background: linear-gradient(135deg, rgba(167,139,250,.3), rgba(56,189,248,.3));
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0;
-      transition: opacity .4s ease;
-      pointer-events: none;
-    }
-    .card:hover::before { opacity: 1; }
+        @keyframes twinkle {
 
-    /* ─── Responsive tweaks ─── */
-    @media (max-width: 480px) {
-      .card { padding: 40px 28px; border-radius: 22px; }
-    }
-  </style>
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(.8);
+            }
+
+            50% {
+                opacity: .7;
+                transform: scale(1.2);
+            }
+        }
+
+        /* ─── Glass Card ─── */
+        .card {
+            position: relative;
+            z-index: 10;
+            width: min(520px, 90vw);
+            padding: 56px 48px;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .08);
+            backdrop-filter: blur(24px) saturate(1.4);
+            -webkit-backdrop-filter: blur(24px) saturate(1.4);
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, .45),
+                inset 0 1px 0 rgba(255, 255, 255, .06);
+            text-align: center;
+            animation: cardEntrance .9s cubic-bezier(.22, 1, .36, 1) both;
+        }
+
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* ─── Greeting ─── */
+        .greeting {
+            font-size: .9rem;
+            font-weight: 400;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, .45);
+            margin-bottom: 12px;
+            animation: fadeSlideUp .8s .3s both;
+        }
+
+        /* ─── Name ─── */
+        .name {
+            font-family: 'Huninn', sans-serif;
+            font-size: clamp(3.2rem, 10vw, 5.5rem);
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            background: linear-gradient(135deg, #e0e0ff 0%, #a78bfa 40%, #38bdf8 70%, #34d399 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 6s ease infinite, fadeSlideUp .8s .45s both;
+        }
+
+        @keyframes gradientText {
+            0% {
+                background-position: 0% center;
+            }
+
+            50% {
+                background-position: 100% center;
+            }
+
+            100% {
+                background-position: 0% center;
+            }
+        }
+
+        /* ─── Divider ─── */
+        .divider {
+            width: 48px;
+            height: 3px;
+            margin: 28px auto;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #a78bfa, #38bdf8);
+            animation: fadeSlideUp .8s .6s both;
+        }
+
+        /* ─── Clock ─── */
+        .clock-label {
+            font-size: .75rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, .35);
+            margin-bottom: 8px;
+            animation: fadeSlideUp .8s .7s both;
+        }
+
+        .clock {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(1.6rem, 5vw, 2.4rem);
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #f0f0ff;
+            animation: fadeSlideUp .8s .8s both;
+        }
+
+        .clock .separator {
+            display: inline-block;
+            animation: blink 1s steps(1) infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: .25;
+            }
+        }
+
+        .date {
+            font-size: .85rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, .4);
+            margin-top: 10px;
+            animation: fadeSlideUp .8s .9s both;
+        }
+
+        /* ─── Footer tagline ─── */
+        .tagline {
+            margin-top: 32px;
+            font-size: .8rem;
+            font-weight: 300;
+            letter-spacing: 1.5px;
+            color: rgba(255, 255, 255, .25);
+            animation: fadeSlideUp .8s 1s both;
+        }
+
+        /* ─── Shared entrance ─── */
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ─── Hover glow on card ─── */
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 28px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(167, 139, 250, .3), rgba(56, 189, 248, .3));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity .4s ease;
+            pointer-events: none;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        /* ─── Responsive tweaks ─── */
+        @media (max-width: 480px) {
+            .card {
+                padding: 40px 28px;
+                border-radius: 22px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-  <!-- Background layers -->
-  <div class="bg"></div>
-  <div class="orb orb--1"></div>
-  <div class="orb orb--2"></div>
-  <div class="orb orb--3"></div>
-  <div class="stars" id="stars"></div>
+    <!-- Background layers -->
+    <div class="bg"></div>
+    <div class="orb orb--1"></div>
+    <div class="orb orb--2"></div>
+    <div class="orb orb--3"></div>
+    <div class="stars" id="stars"></div>
 
-  <!-- Main card -->
-  <main class="card" id="main-card">
-    <p class="greeting">Hello, I'm</p>
-    <h1 class="name">LEE</h1>
-    <div class="divider"></div>
-    <p class="clock-label">Current Time</p>
-    <div class="clock" id="clock" aria-live="polite"></div>
-    <p class="date" id="date"></p>
-    <p class="tagline">designing · developing · dreaming</p>
-  </main>
+    <!-- Main card -->
+    <main class="card" id="main-card">
+        <p class="greeting">Hello, I'm</p>
+        <h1 class="name">LEE</h1>
+        <div class="divider"></div>
+        <p class="clock-label">Current Time</p>
+        <div class="clock" id="clock" aria-live="polite"></div>
+        <p class="date" id="date"></p>
+        <p class="tagline">designing · developing · dreaming</p>
+    </main>
 
-  <script>
-    // ── Stars ──
-    (function createStars() {
-      const container = document.getElementById('stars');
-      const count = 60;
-      for (let i = 0; i < count; i++) {
-        const s = document.createElement('div');
-        s.className = 'star';
-        s.style.top  = Math.random() * 100 + '%';
-        s.style.left = Math.random() * 100 + '%';
-        s.style.animationDelay    = (Math.random() * 6).toFixed(2) + 's';
-        s.style.animationDuration = (3 + Math.random() * 4).toFixed(2) + 's';
-        s.style.width = s.style.height = (1 + Math.random() * 2).toFixed(1) + 'px';
-        container.appendChild(s);
-      }
-    })();
+    <script>
+        // ── Stars ──
+        (function createStars() {
+            const container = document.getElementById('stars');
+            const count = 60;
+            for (let i = 0; i < count; i++) {
+                const s = document.createElement('div');
+                s.className = 'star';
+                s.style.top = Math.random() * 100 + '%';
+                s.style.left = Math.random() * 100 + '%';
+                s.style.animationDelay = (Math.random() * 6).toFixed(2) + 's';
+                s.style.animationDuration = (3 + Math.random() * 4).toFixed(2) + 's';
+                s.style.width = s.style.height = (1 + Math.random() * 2).toFixed(1) + 'px';
+                container.appendChild(s);
+            }
+        })();
 
-    // ── Clock ──
-    function pad(n) { return String(n).padStart(2, '0'); }
+        // ── Clock ──
+        function pad(n) { return String(n).padStart(2, '0'); }
 
-    const MONTHS = ['January','February','March','April','May','June',
-                    'July','August','September','October','November','December'];
-    const DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'];
+        const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-    function updateClock() {
-      const now = new Date();
-      const h = pad(now.getHours());
-      const m = pad(now.getMinutes());
-      const s = pad(now.getSeconds());
+        function updateClock() {
+            const now = new Date();
+            const h = pad(now.getHours());
+            const m = pad(now.getMinutes());
+            const s = pad(now.getSeconds());
 
-      document.getElementById('clock').innerHTML =
-        `${h}<span class="separator">:</span>${m}<span class="separator">:</span>${s}`;
+            document.getElementById('clock').innerHTML =
+                `${h}<span class="separator">:</span>${m}<span class="separator">:</span>${s}`;
 
-      document.getElementById('date').textContent =
-        `${DAYS[now.getDay()]}, ${now.getDate()} ${MONTHS[now.getMonth()]} ${now.getFullYear()}`;
-    }
+            document.getElementById('date').textContent =
+                `${DAYS[now.getDay()]}, ${now.getDate()} ${MONTHS[now.getMonth()]} ${now.getFullYear()}`;
+        }
 
-    updateClock();
-    setInterval(updateClock, 1000);
-  </script>
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
 </body>
+
 </html>
